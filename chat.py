@@ -1,5 +1,7 @@
 import os
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=open_file('openaiapikey.txt'))
 import json
 import numpy as np
 from numpy.linalg import norm
@@ -35,7 +37,7 @@ def timestamp_to_datetime(unix_time):
 
 def gpt3_embedding(content, engine='text-embedding-ada-002'):
     content = content.encode(encoding='ASCII',errors='ignore').decode()
-    response = openai.Embedding.create(input=content,engine=engine)
+    response = client.embeddings.create(input=content,engine=engine)
     vector = response['data'][0]['embedding']  # this is a normal list
     return vector
 
@@ -113,15 +115,14 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.0, top_p=1.0, toke
     prompt = prompt.encode(encoding='ASCII',errors='ignore').decode()
     while True:
         try:
-            response = openai.Completion.create(
-                engine=engine,
-                prompt=prompt,
-                temperature=temp,
-                max_tokens=tokens,
-                top_p=top_p,
-                frequency_penalty=freq_pen,
-                presence_penalty=pres_pen,
-                stop=stop)
+            response = client.completions.create(engine=engine,
+            prompt=prompt,
+            temperature=temp,
+            max_tokens=tokens,
+            top_p=top_p,
+            frequency_penalty=freq_pen,
+            presence_penalty=pres_pen,
+            stop=stop)
             text = response['choices'][0]['text'].strip()
             text = re.sub('[\r\n]+', '\n', text)
             text = re.sub('[\t ]+', ' ', text)
@@ -139,7 +140,6 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.0, top_p=1.0, toke
 
 
 if __name__ == '__main__':
-    openai.api_key = open_file('openaiapikey.txt')
     while True:
         #### get user input, save it, vectorize it, etc
         a = input('\n\nUSER: ')
