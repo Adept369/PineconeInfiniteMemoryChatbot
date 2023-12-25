@@ -37,7 +37,7 @@ def timestamp_to_datetime(unix_time):
 
  
 
-client = OpenAI(api_key ='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')   
+client = OpenAI(api_key ='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')   
 
 def gpt3_embedding(content, engine='text-embedding-ada-002'):
     content = content.encode(encoding='ASCII',errors='ignore').decode()  # fix any UNICODE errors

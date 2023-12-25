@@ -1,0 +1,15 @@
+openai
+boto3
+pinecone-client
+numpy
+fastapi
+pip install speechrecognition
+
+pyttsx3
+
+wikipedia
+
+wolframalpha
+
+pygame
+
