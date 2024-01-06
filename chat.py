@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-client = OpenAI(api_key=open_file('openaiapikey.txt'))
+
 import json
 import numpy as np
 from numpy.linalg import norm
@@ -15,7 +15,7 @@ def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as infile:
         return infile.read()
 
-
+client = OpenAI(api_key='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')
 def save_file(filepath, content):
     with open(filepath, 'w', encoding='utf-8') as outfile:
         outfile.write(content)
